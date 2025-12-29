@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Store Personal Data</title>
+</head>
+<body>
+
+<script>
+  // Store data in browser
+  const userData = {
+    name: "Bilal",
+    phone: "01116541877",
+    address: "El Shorouk",
+    email: "bilalstate@gmali.com"
+  };
+
+  localStorage.setItem("userInfo", JSON.stringify(userData));
+
+  // Retrieve data
+  const storedData = JSON.parse(localStorage.getItem("userInfo"));
+
+  // Display data
+  console.log("Name:", storedData.name);
+  console.log("Phone:", storedData.phone);
+  console.log("Address:", storedData.address);
+  console.log("Email:", storedData.email);
+</script>
+
+</body>
+</html>
