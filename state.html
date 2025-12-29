@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Data Form</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 400px;
+      margin: 40px auto;
+    }
+    input, button {
+      width: 100%;
+      margin: 6px 0;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Information</h2>
+
+  <input type="text" id="name" placeholder="Name">
+  <input type="text" id="phone" placeholder="Phone">
+  <input type="text" id="address" placeholder="Address">
+  <input type="email" id="email" placeholder="Email">
+
+  <button onclick="saveData()">Save</button>
+  <button onclick="loadData()">Load</button>
+  <button onclick="clearData()">Clear</button>
+
+  <script>
+    function saveData() {
+      const user = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        email: document.getElementById("email").value
+      };
+
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      alert("Data saved!");
+    }
+
+    function loadData() {
+      const data = JSON.parse(localStorage.getItem("userInfo"));
+      if (!data) return alert("No data found");
+
+      document.getElementById("name").value = data.name;
+      document.getElementById("phone").value = data.phone;
+      document.getElementById("address").value = data.address;
+      document.getElementById("email").value = data.email;
+    }
+
+    function clearData() {
+      localStorage.removeItem("userInfo");
+      alert("Data cleared!");
+    }
+  </script>
+
+</body>
+</html>
