@@ -1,30 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Store Personal Data</title>
+  <meta charset="UTF-8">
+  <title>Auto Fill User Data</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 400px;
+      margin: 40px auto;
+    }
+    input, button {
+      width: 100%;
+      margin: 6px 0;
+      padding: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<script>
-  // Store data in browser
-  const userData = {
-    name: "Bilal",
-    phone: "01116541877",
-    address: "El Shorouk",
-    email: "bilalstate@gmali.com"
-  };
+  <h2>User Information</h2>
 
-  localStorage.setItem("userInfo", JSON.stringify(userData));
+  <input type="text" id="name" placeholder="Name" oninput="autoFill()">
+  <input type="text" id="phone" placeholder="Phone">
+  <input type="text" id="address" placeholder="Address">
+  <input type="email" id="email" placeholder="Email">
 
-  // Retrieve data
-  const storedData = JSON.parse(localStorage.getItem("userInfo"));
+  <button onclick="saveData()">Save</button>
+  <button onclick="clearData()">Clear</button>
 
-  // Display data
-  console.log("Name:", storedData.name);
-  console.log("Phone:", storedData.phone);
-  console.log("Address:", storedData.address);
-  console.log("Email:", storedData.email);
-</script>
+  <script>
+    // Keep inputs empty on load
+    window.onload = () => {
+      document.querySelectorAll("input").forEach(i => i.value = "");
+    };
+
+    function saveData() {
+      const user = {
+        name: name.value.trim(),
+        phone: phone.value,
+        address: address.value,
+        email: email.value
+      };
+
+      if (!user.name) {
+        alert("Name is required");
+        return;
+      }
+
+      localStorage.setItem("user_" + user.name.toLowerCase(), JSON.stringify(user));
+      alert("Data saved!");
+    }
+
+    function autoFill() {
+      const key = "user_" + name.value.toLowerCase();
+      const data = JSON.parse(localStorage.getItem(key));
+
+      if (data) {
+        phone.value = data.phone;
+        address.value = data.address;
+        email.value = data.email;
+      } else {
+        phone.value = "";
+        address.value = "";
+        email.value = "";
+      }
+    }
+
+    function clearData() {
+      if (!name.value) return alert("Enter name first");
+      localStorage.removeItem("user_" + name.value.toLowerCase());
+      phone.value = address.value = email.value = "";
+      alert("Data cleared");
+    }
+  </script>
 
 </body>
 </html>
+
