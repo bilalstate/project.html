@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Info</title>
+</head>
+<body>
+  <h2>User Information</h2>
+  <p id="output"></p>
+
+  <script>
+    // Store data in browser
+    const userData = {
+      name: "Bilal",
+      phone: "01116541877",
+      address: "El Shorouk",
+      email: "bilalstate@gmali.com"
+    };
+
+    localStorage.setItem("userInfo", JSON.stringify(userData));
+
+    // Retrieve data
+    const data = JSON.parse(localStorage.getItem("userInfo"));
+
+    // Display on page
+    document.getElementById("output").innerHTML = `
+      Name: ${data.name}<br>
+      Phone: ${data.phone}<br>
+      Address: ${data.address}<br>
+      Email: ${data.email}
+    `;
+  </script>
+</body>
+</html>
